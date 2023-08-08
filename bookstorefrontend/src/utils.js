@@ -1,0 +1,1 @@
+export const createSlug = ( str ) => str.toLowerCase().split( " " ).join( "-" );
