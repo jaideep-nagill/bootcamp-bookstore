@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 import os
+import pymysql
+pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 print(BASE_DIR)
@@ -22,10 +24,10 @@ print(BASE_DIR)
 SECRET_KEY = 'django-insecure-boirqv**1*7)8#@m8!#8imy7g+0+pmi+5z4+9z0vdf9q#!riiu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = False
+# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.126.41.53']
 
 # Application definition
 
@@ -84,8 +86,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bookstoredb',
         'USER': 'root',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'PASSWORD': '09876543',
+        'HOST': 'bootcamp-bookstore.clqtldxg4cqr.ap-south-1.rds.amazonaws.com',
         'PORT': 3306
     }
 }
@@ -136,13 +138,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR/'bookstorefrontend/build/static'
 ]
-SESSION_COOKIE_DOMAIN = ".localhost:3000/"
-CSRF_COOKIE_DOMAIN = ".localhost:3000/"
-LANGUAGE_COOKIE_DOMAIN = ".localhost:3000/"
+# SESSION_COOKIE_DOMAIN = ".localhost:3000/"
+# CSRF_COOKIE_DOMAIN = ".localhost:3000/"
+# LANGUAGE_COOKIE_DOMAIN = ".localhost:3000/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
