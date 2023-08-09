@@ -9,15 +9,15 @@ const BookDetails = ( props ) => {
   const [ bookDetails, setBookDetails ] = useState( {} );
   const [ imageUrl, setImageUrl ] = useState( "#" );
   const { slug } = useParams();
-  const { isAuthenticated } = useContext( AppContext );
+  const { isAuthenticated, host, imageHost } = useContext( AppContext );
 
   const getImage = async () => {
-    const imageData = await axios.get( `http://127.0.0.1:8080/${ slug }` );
+    const imageData = await axios.get( `http://${ imageHost }/${ slug }` );
     setImageUrl( imageData.data.payload.url );
   };
 
   const getBookDetails = async function ( slug ) {
-    const details = await axios.get( `http://127.0.0.1:8000/api/book/${ slug }/` ).catch( err => console.log( err ) );
+    const details = await axios.get( `http://${ host }/api/book/${ slug }/` ).catch( err => console.log( err ) );
     setBookDetails( details.data.payload );
   };
 

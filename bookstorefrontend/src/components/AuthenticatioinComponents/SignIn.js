@@ -5,12 +5,12 @@ import { AppContext } from '../../context/AppContext';
 import Cookies from 'js-cookie';
 
 const SignIn = () => {
-  const { setRole, setIsAuthenticated, getUser } = useContext( AppContext );
+  const { setRole, setIsAuthenticated, getUser, host } = useContext( AppContext );
 
   const onSubmit = async ( data ) => {
     try {
       await axios.post(
-        "http://localhost:8000/api/user/sign-in/",
+        `http://${ host }/api/user/sign-in/`,
         data,
         { 'withCredentials': true }
       );

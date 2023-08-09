@@ -7,12 +7,12 @@ import { AppContext } from "../../context/AppContext";
 
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
-  const { setRole, setIsAuthenticated } = useContext( AppContext );
+  const { setRole, setIsAuthenticated, host } = useContext( AppContext );
   const onSubmit = async ( data ) => {
     // event.preventDefault();
     const string_data = JSON.stringify( data );
     console.log( string_data );
-    const response = await axios.post( "http://localhost:8000/api/user/sign-up/", data );
+    const response = await axios.post( `http://${ host }/api/user/sign-up/`, data );
     console.log( response );
   };
   useEffect( () => {

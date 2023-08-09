@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Cart () {
-  const { cart, setCart, totalAmount, setTotalAmount, isAuthenticated, currentUser } = useContext( AppContext );
+  const { cart, setCart, totalAmount, setTotalAmount, isAuthenticated, currentUser, host } = useContext( AppContext );
   const [ cartItems, setCartItems ] = useState( [] );
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function Cart () {
     if ( !isAuthenticated ) navigate( "/signin" );
     cartItems.map( async ( book ) => {
       if ( book.id in cart )
-        await axios.patch( `http://localhost:8000/api/book/${ book.id }/`,
+        await axios.patch( `http://${ host }/api/book/${ book.id }/`,
           {
             sale: book.sale + cart[ book.id ],
             stock: book.stock - cart[ book.id ]
@@ -31,7 +31,7 @@ function Cart () {
       books.push( { id: key, qty: value } );
     }
 
-    await axios.post( "http://localhost:8000/api/order",
+    await axios.post( `http://${ host }/api/order`,
       {
         user: currentUser.id,
         books: books
@@ -51,7 +51,7 @@ function Cart () {
 
     const items = await axios( {
       method: 'post',
-      url: "http://localhost:8000/api/book/",
+      url: `http://${ host }/api/book/`,
       data: {
         cart: ids
       }

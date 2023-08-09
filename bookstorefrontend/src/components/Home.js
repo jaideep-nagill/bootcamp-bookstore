@@ -1,20 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import BookCard from "./StoreComponents/BookCard";
 import { createSlug } from "../utils";
+import { AppContext } from "../context/AppContext";
 
 function Home () {
   const [ topFive, setTopFive ] = useState( [] );
   const [ recentlyAdded, setRecentlyAdded ] = useState( [] );
+  const { host } = useContext( AppContext );
 
   const getTopFive = async () => {
-    const data = await axios.get( "http://localhost:8000/api/book/top-five-rated" )
+    const data = await axios.get( `http://${ host }/api/book/top-five-rated` )
       .then( res => res.data.payload )
       .catch( err => console.log( err ) );
     setTopFive( data );
   };
   const getRecentlyAdded = async () => {
-    const data = await axios.get( "http://localhost:8000/api/book/recently-added" )
+    const data = await axios.get( `http://${ host }/api/book/recently-added` )
       .then( res => res.data.payload )
       .catch( err => console.log( err ) );
     setRecentlyAdded( data );

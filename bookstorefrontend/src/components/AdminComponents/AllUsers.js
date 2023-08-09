@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
-
 export const UserCard = ( { key, userId, name, username, deleteUserEntry } ) => {
+  const { host } = useContext( AppContext );
 
   const deleteUser = async () => {
-    await axios.delete( `http://localhost:8000/api/user/delete-user/${ userId }/` );
+    await axios.delete( `http://${ host }/api/user/delete-user/${ userId }/` );
     deleteUserEntry( key );
   };
   return (
@@ -22,9 +23,9 @@ export const UserCard = ( { key, userId, name, username, deleteUserEntry } ) => 
 
 const AllUsers = () => {
   const [ users, setUsers ] = useState( [] );
-
+  const { host } = useContext( AppContext );
   const getAllUsers = async () => {
-    const all_users = await axios.get( "http://localhost:8000/api/user/all-users" ).then( res => res.data.payload );
+    const all_users = await axios.get( `http://${ host }/api/user/all-users` ).then( res => res.data.payload );
     setUsers( all_users );
     console.log( all_users );
   };

@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 const Testing = () => {
   const [ file, setFile ] = useState();
+  const { host } = useContext( AppContext );
   // const [ setImageUrl ] = useState( "" );
 
   const slug = "Book-1";
@@ -13,7 +15,7 @@ const Testing = () => {
     const formData = new FormData();
     formData.append( "image", file );
     formData.append( "imageName", id + "-" + slug );
-    await axios.post( "http://localhost:8080/", formData, { headers: { 'Content-Type': 'multipart/form-data' } } );
+    await axios.post( `http://${ host }/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } } );
   };
 
   // const getImage = async () => {

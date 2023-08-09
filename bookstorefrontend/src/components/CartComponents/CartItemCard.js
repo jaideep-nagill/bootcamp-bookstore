@@ -6,7 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const CartItemCard = ( { bookId, bookTitle, bookPrice, slug } ) => {
-  const { cart, setCart, isAuthenticated, currentUser } = useContext( AppContext );
+  const { cart, setCart, isAuthenticated, currentUser, imageHost } = useContext( AppContext );
   const [ imageUrl, setImageUrl ] = useState( "#" );
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const CartItemCard = ( { bookId, bookTitle, bookPrice, slug } ) => {
   };
 
   const getImage = async () => {
-    const imageData = await axios.get( `http://localhost:8080/${ slug }` );
+    const imageData = await axios.get( `http://${ imageHost }/${ slug }` );
 
     setImageUrl( imageData.data.payload.url );
   };

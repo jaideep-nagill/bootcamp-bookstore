@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { createSlug } from '../../utils';
@@ -9,7 +10,7 @@ const AddBook = ( { role } ) => {
   const [ authors, setAuthors ] = useState( [] );
   const [ file, setFile ] = useState();
   const [ slug, setSlug ] = useState( "" );
-
+  const { host } = useContext( AppContext );
   const submit = async event => {
     event.preventDefault();
 
@@ -17,7 +18,7 @@ const AddBook = ( { role } ) => {
     formData.append( "image", file );
     formData.append( "imageName", slug );
     formData.append( "user_role", role );
-    await axios.post( "http://localhost:8000/", formData, { headers: { 'Content-Type': 'multipart/form-data' } } );
+    await axios.post( `http://${ host }/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } } );
   };
 
   const onSubmit = async ( data ) => {
@@ -33,19 +34,19 @@ const AddBook = ( { role } ) => {
     if ( 'price' in data ) data[ 'price' ] = parseFloat( data[ 'price' ] );
     if ( 'rating' in data ) data.rating = parseFloat( data.rating );
 
-    await axios.post( "http://localhost:8000/api/book/", data );
+    await axios.post( `http://${ host }/api/book/`, data );
 
     setSlug( createSlug( data[ 'title' ] ) );
 
   };
 
   const getAllAuthors = async () => {
-    const all_authors = await axios.get( "http://localhost:8000/api/user/get-all-author" ).then( res => res.data.payload );
+    const all_authors = await axios.get( `http://${ host }/api/user/get-all-author` ).then( res => res.data.payload );
     setAuthors( all_authors );
   };
 
   const getAllGenres = async () => {
-    const all_genres = await axios.get( "http://localhost:8000/api/user/get-all-genres" ).then( res => res.data.payload );
+    const all_genres = await axios.get( `http://${ host }/api/user/get-all-genres` ).then( res => res.data.payload );
     setGenres( all_genres );
   };
 

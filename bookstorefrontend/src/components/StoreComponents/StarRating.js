@@ -8,13 +8,13 @@ import { AppContext } from '../../context/AppContext';
 const StarRating = ( { bookId, bookRating, bookSale } ) => {
   const [ rating, setRating ] = useState( 0 );
   const [ hover, setHover ] = useState( 0 );
-  const { isAuthenticated } = useContext( AppContext );
+  const { isAuthenticated, host } = useContext( AppContext );
 
   const setNewRating = async () => {
     if ( !isAuthenticated ) return;
     if ( rating !== 0 ) {
       let totalRating = parseInt( ( ( bookRating * bookSale ) + rating ) / ( bookSale + 1 ) * 10 ) / 10;
-      await axios.patch( `http://127.0.0.1:8000/api/book/${ bookId }/`,
+      await axios.patch( `http://${ host }/api/book/${ bookId }/`,
         { rating: totalRating } );
     };
   };

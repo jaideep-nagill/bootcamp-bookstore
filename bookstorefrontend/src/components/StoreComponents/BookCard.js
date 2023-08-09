@@ -8,11 +8,11 @@ const BookCard = ( { bookId, bookName, genre, slug, bookStock } ) => {
   bookId = parseInt( bookId );
   const [ inCart, setInCart ] = useState( false );
   const [ isMouseOver, setIsMouseOver ] = useState( false );
-  const { cart, setCart, isAuthenticated, currentUser } = useContext( AppContext );
+  const { cart, setCart, isAuthenticated, currentUser, imageHost } = useContext( AppContext );
   const [ imageUrl, setImageUrl ] = useState( "#" );
 
   const getImage = async () => {
-    const imageData = await axios.get( `http://127.0.0.1:8080/${ slug }` );
+    const imageData = await axios.get( `http://${ imageHost }/${ slug }` );
 
     setImageUrl( imageData.data.payload.url );
   };

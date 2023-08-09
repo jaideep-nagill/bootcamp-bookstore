@@ -8,23 +8,23 @@ import { createSlug } from "../../utils";
 
 function Store () {
   const { register, handleSubmit } = useForm();
-  const { books, setBooks, showSearch, setShowSearch } = useContext( AppContext );
+  const { books, setBooks, showSearch, setShowSearch, host } = useContext( AppContext );
   const [ authors, setAuthors ] = useState( [] );
   const [ genres, setGenres ] = useState( [] );
   const [ showGenre, setShowGenre ] = useState( false );
 
   const getAllBooks = async () => {
-    const all_books = await axios.get( "http://127.0.0.1:8000/api/book/" ).then( res => res.data.payload );
+    const all_books = await axios.get( `http://${ host }/api/book/` ).then( res => res.data.payload );
     setBooks( all_books );
   };
 
   const getAllAuthors = async () => {
-    const all_authors = await axios.get( "http://127.0.0.1:8000/api/user/get-all-author" ).then( res => res.data.payload );
+    const all_authors = await axios.get( `http://${ host }/api/user/get-all-author` ).then( res => res.data.payload );
     setAuthors( all_authors );
   };
 
   const getAllGenres = async () => {
-    const all_genres = await axios.get( "http://127.0.0.1:8000/api/user/get-all-genres" ).then( res => res.data.payload );
+    const all_genres = await axios.get( `http://${ host }/api/user/get-all-genres` ).then( res => res.data.payload );
     setGenres( all_genres );
   };
 
@@ -38,12 +38,12 @@ function Store () {
 
     let arr = [];
     if ( 'title' in data && data.title !== "" )
-      arr.push( `title=${ data.title }` );
+      arr.push( `title = ${ data.title }` );
     if ( 'author' in data && data.author !== "" && data.author !== "-- Search Author --" )
-      arr.push( `author=${ data.author }` );
+      arr.push( `author = ${ data.author }` );
     if ( 'genres' in data && data.genres !== "" )
-      arr.push( `genres=${ data.genres }` );
-    const queryString = ( "http://127.0.0.1:8000/api/book/search?" + arr.join( "&" ) );
+      arr.push( `genres = ${ data.genres }` );
+    const queryString = ( `http:;//${ host }/api/book/search?` + arr.join( "&" ) );
     const searchedBooks = await axios
       .get( queryString )
       .then( res => res.data.payload )

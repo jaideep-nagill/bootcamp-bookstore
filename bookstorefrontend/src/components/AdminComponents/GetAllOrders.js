@@ -5,10 +5,10 @@ import { AppContext } from '../../context/AppContext';
 
 const GetAllOrders = () => {
   const [ orders, setOrders ] = useState( [] );
-  const { currentUser, role } = useContext( AppContext );
+  const { currentUser, role, host } = useContext( AppContext );
 
   const getOrderLog = async () => {
-    const url = "http://localhost:8000/api/order" + ( role === 'buyer' ? `/${ currentUser.id }/` : "" );
+    const url = `http://${ host }/api/order` + ( role === 'buyer' ? `/${ currentUser.id }/` : "" );
     const response = await axios.get( url ).then( res => res.data.payload );
     setOrders( response );
   };

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
 const DeleteBook = () => {
   const [ bookId, setBookId ] = useState( 0 );
@@ -15,20 +16,20 @@ const DeleteBook = () => {
   const [ genre, setGenre ] = useState( [] );
   const [ authors, setAuthors ] = useState( [] );
   const [ genres, setGenres ] = useState( [] );
-
+  const { host } = useContext( AppContext );
   const getAllAuthors = async () => {
-    const all_authors = await axios.get( "http://localhost:8000/api/user/get-all-author" ).then( res => res.data.payload );
+    const all_authors = await axios.get( `http://${ host }/api/user/get-all-author` ).then( res => res.data.payload );
     setAuthors( all_authors );
   };
 
   const getAllGenres = async () => {
-    const all_genres = await axios.get( "http://localhost:8000/api/user/get-all-genres" ).then( res => res.data.payload );
+    const all_genres = await axios.get( `http://${ host }/api/user/get-all-genres` ).then( res => res.data.payload );
     setGenres( all_genres );
   };
 
   const getBook = async () => {
     const book = await axios
-      .get( `http://localhost:8000/api/book/${ bookId }/` )
+      .get( `http://${ host }/api/book/${ bookId }/` )
       .then( res => res.data.payload )
       .catch( err => console.log( err ) );
 
@@ -48,12 +49,12 @@ const DeleteBook = () => {
   };
 
   const deleteBook = async () => {
-    await axios.delete( `http://localhost:8000/api/book/${ bookId }/` );
+    await axios.delete( `http://${ host }/api/book/${ bookId }/` );
     setShowForm( false );
   };
 
   const updateBook = async () => {
-    await axios.patch( `http://localhost:8000/api/book/${ bookId }/`,
+    await axios.patch( `http://${ host }/api/book/${ bookId }/`,
       {
         title,
         price,

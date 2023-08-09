@@ -12,13 +12,15 @@ export const AppContextProvider = props => {
   const [ role, setRole ] = useState( "" );
   const [ currentUser, setCurrentUser ] = useState( {} );
 
+  const host = 'localhost:8000';
+  const imageHost = 'localhost:8080';
 
 
   const authorize = async () => {
     try {
       if ( Cookies.get( 'user_role' ) !== undefined ) {
 
-        const response = await axios.get( "http://localhost:8000/api/user/authorization", {
+        const response = await axios.get( `http://${ host }/api/user/authorization`, {
           'withCredentials': true
         } );
         if ( response.status === 200 ) {
@@ -48,7 +50,7 @@ export const AppContextProvider = props => {
 
     if ( user_id === undefined ) return;
     const response = await axios.get(
-      `http://localhost:8000/api/user/get-user/${ user_id }/`
+      `http://${ host }/api/user/get-user/${ user_id }/`
     );
 
     setCurrentUser( response.data.payload );
@@ -92,7 +94,9 @@ export const AppContextProvider = props => {
       setRole,
       currentUser,
       setCurrentUser,
-      getUser
+      getUser,
+      host,
+      imageHost
     } }>
       { props.children }
     </AppContext.Provider>
