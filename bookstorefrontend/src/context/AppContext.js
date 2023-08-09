@@ -12,8 +12,8 @@ export const AppContextProvider = props => {
   const [ role, setRole ] = useState( "" );
   const [ currentUser, setCurrentUser ] = useState( {} );
 
-  const host = 'localhost:8000';
-  const imageHost = 'localhost:8080';
+  const host = '13.126.41.53:8000';
+  const imageHost = '13.126.41.53:8080';
 
 
   const authorize = async () => {
