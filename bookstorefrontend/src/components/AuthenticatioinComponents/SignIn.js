@@ -16,9 +16,6 @@ const SignIn = () => {
       );
       console.log( "called" );
       setIsAuthenticated( true );
-
-
-
       getUser();
       setRole( Cookies.get( 'user_role' ) );
     } catch ( err ) {
