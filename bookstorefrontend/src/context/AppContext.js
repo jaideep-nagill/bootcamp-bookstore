@@ -41,6 +41,7 @@ export const AppContextProvider = props => {
     const prevGuestCart = localStorage?.getItem( `unsignedUserCart` );
 
     if ( prevGuestCart ) {
+      console.log( prevGuestCart );
       setCart( { ...JSON.parse( prevGuestCart ) } );
     }
   };

@@ -140,8 +140,11 @@ STATIC_ROOT = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR/'bookstorefrontend/build/static'
 ]
-SESSION_COOKIE_DOMAIN = ".localhost:3000/"
-CSRF_COOKIE_DOMAIN = ".localhost:3000/"
+SESSION_COOKIE_DOMAIN = ".localhost:8000/"
+CSRF_COOKIE_DOMAIN = ".localhost:8000/"
+CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
+CSRF_COOKIE_SAMESITE = None  # Change to 'Lax' or 'Strict' in production
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
 LANGUAGE_COOKIE_DOMAIN = ".localhost:3000/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
